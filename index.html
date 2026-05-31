@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norex Hub | Private Admin</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0b0f19; color: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .box { background-color: #111827; padding: 35px; border-radius: 16px; width: 100%; max-width: 480px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); border: 1px solid #1f2937; text-align: center; }
+        h2 { margin-bottom: 25px; color: #38bdf8; font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
+        input { width: 100%; padding: 14px; margin-bottom: 18px; border-radius: 8px; border: 1px solid #374151; background-color: #1f2937; color: white; font-size: 16px; outline: none; text-align: center; transition: 0.2s; }
+        input:focus { border-color: #38bdf8; background-color: #111827; }
+        button { width: 100%; padding: 14px; border: none; border-radius: 8px; background-color: #0284c7; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        button:hover { background-color: #0369a1; }
+        .error { color: #f87171; font-size: 14px; margin-bottom: 15px; display: none; font-weight: 600; }
+        .hidden-content { display: none; }
+        textarea { width: 100%; height: 180px; background-color: #0b0f19; color: #34d399; border: 1px solid #374151; border-radius: 8px; padding: 12px; font-family: 'Courier New', Courier, monospace; font-size: 14px; resize: none; margin-top: 15px; text-align: left; direction: ltr; }
+        .btn-copy { background-color: #059669; margin-top: 12px; }
+        .btn-copy:hover { background-color: #047857; }
+    </style>
+</head>
+<body>
+
+    <div class="box" id="loginBox">
+        <h2>🔒 نظام الحماية الخاص بـ Norex</h2>
+        <div class="error" id="errorMsg">البيانات غير صحيحة! الدخول ممنوع.</div>
+        <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني الخاص">
+        <input type="password" id="password" placeholder="أدخل الرمز السري">
+        <button onclick="checkLogin()">تسجيل الدخول الآمن</button>
+    </div>
+
+    <div class="box hidden-content" id="dashboardBox">
+        <h2>نظام إدارة Norex Hub 🚀</h2>
+        <p style="color: #9ca3af; font-size: 14px; margin-bottom: 5px;">كود السكربت الحالي محمي وجاهز للاستدعاء:</p>
+        
+        <textarea id="scriptCode" readonly>--[[ كود سكربت روبلوكس الخاص بك يوضع هنا ]]
+return(function(...)
+print("Norex Loaded from Private Server!")
+end)(...)</textarea>
+        
+        <button class="btn-copy" onclick="copyScript()">نسخ الكود المصدري</button>
+        <button onclick="logout()" style="background-color: #4b5563; margin-top: 15px;">تسجيل الخروج</button>
+    </div>
+
+    <script>
+        // 🛑 عدّل هذه البيانات بحسابك السري الخاص جداً 🛑
+        const MY_EMAIL = "omar@norex.com"; // ضع إيميلك هنا
+        const MY_PASSWORD = "norexpassword123"; // ضع رمزك السري هنا
+
+        function checkLogin() {
+            const userEmail = document.getElementById('email').value;
+            const userPass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (userEmail === MY_EMAIL && userPass === MY_PASSWORD) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('dashboardBox').style.display = 'block';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function copyScript() {
+            const copyText = document.getElementById("scriptCode");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            alert("تم نسخ السكربت بنجاح!");
+        }
+
+        function logout() {
+            document.getElementById('loginBox').style.display = 'block';
+            document.getElementById('dashboardBox').style.display = 'none';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
